@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aditya Airlangga - Portfolio</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        scroll-behavior: smooth; /* Add smooth scroll behavior */
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --text-color: #1f2937;
+        --bg-color: #f3f4f6;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      /* Header Styles */
+      .main-header {
+        background-color: white;
+        padding: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .main-nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-color);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      /* Hero Section */
+      .hero-section {
+        padding: 8rem 1.5rem 4rem;
+        text-align: center;
+        background: white;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+        color: #4b5563;
+        margin-bottom: 2rem;
+      }
+
+      /* Portfolio Section */
+      .portfolio-section {
+        padding: 4rem 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .filter-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 0.5rem 1.5rem;
+        border: none;
+        border-radius: 25px;
+        background: white;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+      }
+
+      .filter-btn.active {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .project-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .project-info {
+        padding: 1.5rem;
+      }
+
+      .project-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+      }
+
+      .project-description {
+        color: #4b5563;
+        margin-bottom: 1rem;
+      }
+
+      .project-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        background: var(--bg-color);
+        padding: 0.2rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        color: var(--primary-color);
+      }
+
+      /* Certificate Button */
+      .btn-view-cert {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 12px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: background 0.3s ease;
+      }
+
+      .btn-view-cert:hover {
+        background-color: #0056b3;
+      }
+
+      /* Modal for Certificate */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1001;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        max-width: 90%;
+        max-height: 90vh;
+      }
+
+      .modal-content img {
+        width: 100%;
+        height: auto;
+        max-height: 90vh;
+        object-fit: contain;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+
+      /* Contact Section */
+      .contact-section {
+        padding: 4rem 1.5rem;
+        background: white;
+        text-align: center;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .social-link {
+        color: var(--text-color);
+        font-size: 2rem;
+        transition: color 0.3s;
+      }
+
+      .social-link:hover {
+        color: var(--primary-color);
+      }
+
+      /* Footer Styles */
+      .footer {
+        background: white;
+        padding: 2rem 1.5rem;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .footer-section {
+        padding: 1rem;
+      }
+
+      .footer-section h3 {
+        color: var(--text-color);
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .footer-section p {
+        color: #4b5563;
+        line-height: 1.7;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        margin-top: 2rem;
+        border-top: 1px solid #e5e7eb;
+        color: #4b5563;
+      }
+
+      /* Mobile Menu */
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: white;
+          padding: 1rem;
+          flex-direction: column;
+          text-align: center;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .hero-content h1 {
+          font-size: 2rem;
+        }
+
+        .hero-content p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="main-header">
+      <nav class="main-nav">
+        <div class="logo">AA</div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-section" id="home">
+        <div class="hero-content">
+          <h1>Aditya Airlangga</h1>
+          <p>Web Developer | Mobile App Developer | UI/UX Designer</p>
+        </div>
+      </section>
+
+      <section class="portfolio-section" id="portfolio">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="webdev">Web Dev</button>
+          <button class="filter-btn" data-filter="mobile">Mobile App</button>
+          <button class="filter-btn" data-filter="uiux">UI/UX Design</button>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Web Development Projects -->
+          <article class="project-card" data-category="webdev">
+            <img
+              src="dashboard.png"
+              alt="Admin Dashboard"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Admin Dashboard</h3>
+              <p class="project-description">
+                A fully responsive admin panel using Bootstrap.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Bootstrap</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">PHP</span>
+                <span class="tag">MySQL</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="webdev">
+            <img
+              src="ads.png"
+              alt="Adswizards Landing Page"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Adswizards Landing Page</h3>
+              <p class="project-description">
+                A creative landing page for an advertising agency.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Bootstrap</span>
+                <span class="tag">JavaScript</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="webdev">
+            <img
+              src="cinema.png"
+              alt="Cinema Booking Website"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Cinema Booking Website</h3>
+              <p class="project-description">
+                An online ticket booking platform for cinemas.
+              </p>
+              <div class="project-tags">
+                <span class="tag">PHP</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">MySQL</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="webdev">
+            <img
+              src="groovy.png"
+              alt="Groovy Music Website"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Groovy Music Website</h3>
+              <p class="project-description">
+                A modern and interactive music landing page.
+              </p>
+              <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="webdev">
+            <img
+              src="unico.png"
+              alt="Unico Gelato Website"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Unico Gelato Website</h3>
+              <p class="project-description">
+                A visually appealing landing page for a gelato cafe.
+              </p>
+              <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="webdev">
+            <img
+              src="Photograph.png"
+              alt="Photography Portfolio"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Photography Portfolio</h3>
+              <p class="project-description">
+                A professional portfolio showcasing photography works.
+              </p>
+              <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="webdev">
+            <img
+              src="cars.png"
+              alt="Dreamscars Landing Page"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Dreamscars Landing Page</h3>
+              <p class="project-description">
+                A sleek and stylish landing page with Bootstrap.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Bootstrap</span>
+                <span class="tag">JavaScript</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="webdev">
+            <img
+              src="museum.png"
+              alt="Museum Online Ticket Booking"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Museum Online Ticket Booking</h3>
+              <p class="project-description">
+                A complete online ticket reservation system.
+              </p>
+              <div class="project-tags">
+                <span class="tag">PHP</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">MySQL</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Mobile App Projects -->
+          <article class="project-card" data-category="mobile">
+            <img
+              src="dart.png"
+              alt="Ice Cream Mobile App"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Ice Cream Mobile App</h3>
+              <p class="project-description">
+                A mobile application for ordering ice cream.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Flutter</span>
+                <span class="tag">Dart</span>
+                <span class="tag">MySQL</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- UI/UX Design Projects -->
+          <article class="project-card" data-category="uiux">
+            <img
+              src="landing.png"
+              alt="E-commerce Landing Page"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">E-commerce Landing Page</h3>
+              <p class="project-description">
+                A modern UI/UX design for an e-commerce website.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Figma</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="uiux">
+            <img src="quiz.png" alt="Quiz Mobile App" class="project-img" />
+            <div class="project-info">
+              <h3 class="project-title">Quiz Mobile App</h3>
+              <p class="project-description">
+                A fun and interactive quiz app design.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Figma</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="uiux">
+            <img src="talku.png" alt="Talku Mobile App" class="project-img" />
+            <div class="project-info">
+              <h3 class="project-title">Talku Mobile App</h3>
+              <p class="project-description">
+                A communication bridge for hearing-impaired users.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Figma</span>
+              </div>
+              <a href="sertif.png" target="_blank" class="btn-view-cert"
+                >View Certificate</a
+              >
+            </div>
+          </article>
+
+          <article class="project-card" data-category="uiux">
+            <img
+              src="tracking.png"
+              alt="Tracking Packet App"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Tracking Packet App</h3>
+              <p class="project-description">
+                A tracking system for package operators.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Figma</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-category="uiux">
+            <img
+              src="grab.png"
+              alt="Redesign Grab for Smartwatch"
+              class="project-img"
+            />
+            <div class="project-info">
+              <h3 class="project-title">Redesign Grab for Smartwatch</h3>
+              <p class="project-description">
+                A UI/UX redesign for Grab on smartwatches.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Figma</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact">
+        <div class="contact-content">
+          <h2 class="section-title">Connect With Me</h2>
+          <div class="social-links">
+            <a
+              href="https://wa.me/+6289616800175"
+              class="social-link"
+              target="_blank"
+            >
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/lylylyz_?igsh=b2VlbzJxNnNiMWJr"
+              class="social-link"
+              target="_blank"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Me</h3>
+          <p>
+            A passionate developer and designer creating innovative solutions
+            for web and mobile platforms. Specializing in creating user-friendly
+            and efficient applications.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h3>Services</h3>
+          <p>
+            • Web Development<br />
+            • Mobile App Development<br />
+            • UI/UX Design<br />
+          </p>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <p>
+            Email : bobyairlangga90@gmail.com<br />
+            Location : Surabaya, Indonesia<br />
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Aditya Airlangga. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Certificate Modal -->
+    <div class="modal" id="certificateModal">
+      <span class="close-modal">&times;</span>
+      <div class="modal-content">
+        <img src="sertif.jpg" alt="Certificate" />
+      </div>
+    </div>
+
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+      const navLinks = document.querySelector(".nav-links");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+
+      // Portfolio Filter
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const projectCards = document.querySelectorAll(".project-card");
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          // Remove active class from all buttons
+          filterButtons.forEach((btn) => btn.classList.remove("active"));
+          // Add active class to clicked button
+          button.classList.add("active");
+
+          const filterValue = button.getAttribute("data-filter");
+
+          projectCards.forEach((card) => {
+            if (
+              filterValue === "all" ||
+              card.getAttribute("data-category") === filterValue
+            ) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Certificate Modal
+      const viewCertButton = document.getElementById("viewCertificate");
+      const modal = document.getElementById("certificateModal");
+      const closeModal = document.querySelector(".close-modal");
+
+      viewCertButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        modal.classList.add("active");
+      });
+
+      closeModal.addEventListener("click", () => {
+        modal.classList.remove("active");
+      });
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>
